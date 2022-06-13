@@ -62,8 +62,23 @@ contract("EmitAndTransfer", accounts => {
     });
 
     var balance = await ERC20Instance.balanceOf(accounts[1]);
-
     assert.equal(balance.toNumber(),500-50,"The transfer didn't occur after emmision");
+
+    var opCount = await emitAndTransferInstance.latestOp();
+    assert.equal(opCount.toNumber(),2,"Op count issue!");
+
+    var firstOpStr = await emitAndTransferInstance.ixAddressLookup(1);
+    assert.equal(firstOpStr,solAddr,"Operation 1 Recording Address Issue");
+    
+    var firstOpFunds = await emitAndTransferInstance.ixFundsLookup(1);
+    assert.equal(firstOpFunds.toNumber(),10,"Operation 1 Recording Funds Issue");
+
+    
+    var scndOpStr = await emitAndTransferInstance.ixAddressLookup(2);
+    assert.equal(scndOpStr,solAddr,"Operation 2 Recording Address Issue");
+    
+    var scndOpFunds = await emitAndTransferInstance.ixFundsLookup(2);
+    assert.equal(scndOpFunds.toNumber(),40,"Operation 2 Recording Funds Issue");
     
   });
 });
