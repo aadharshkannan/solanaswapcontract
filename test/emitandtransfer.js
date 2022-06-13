@@ -72,8 +72,7 @@ contract("EmitAndTransfer", accounts => {
     
     var firstOpFunds = await emitAndTransferInstance.ixFundsLookup(1);
     assert.equal(firstOpFunds.toNumber(),10,"Operation 1 Recording Funds Issue");
-
-    
+   
     var scndOpStr = await emitAndTransferInstance.ixAddressLookup(2);
     assert.equal(scndOpStr,solAddr,"Operation 2 Recording Address Issue");
     
